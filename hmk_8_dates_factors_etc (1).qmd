@@ -53,6 +53,7 @@ Now use lubridate to plot only the unemployment data from Jan 1st 2008 to Jan 1s
 
 ```{r}
 # your code here
+print("helloworld")
 ```
 
 What do you notice about the format of the date variable on the x axis of this plot vs the plot over the entire time window. What do you think is happening here?
