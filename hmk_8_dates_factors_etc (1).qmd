@@ -36,6 +36,14 @@ blue_eyes
 red_eyes <- starwars |>
   filter(str_detect(eye_color, "red"))
 red_eyes
+#Characters with both red and blue in eye_color
+both_blue_red <- starwars |>
+  filter(
+    str_detect(eye_color, "blue") &
+    str_detect(eye_color, "red")
+  )
+
+both_blue_red
 ```
 
 ## Question 2 — American Unemployment Over Time
@@ -53,7 +61,10 @@ Now use lubridate to plot only the unemployment data from Jan 1st 2008 to Jan 1s
 
 ```{r}
 # your code here
-print("helloworld")
+economics |>
+  filter(date >= ymd("2008-01-01") & date <= ymd("2009-01-01")) |>
+  ggplot(aes(x = date, y = unemploy)) +
+  geom_line()
 ```
 
 What do you notice about the format of the date variable on the x axis of this plot vs the plot over the entire time window. What do you think is happening here?
@@ -64,6 +75,15 @@ Now use mutate to calculate a new variable - the monthly unemployment rate as `u
 
 ```{r}
 # your code here
+economics |>
+  mutate(unemployment_rate = unemploy / pop * 100) |>
+  ggplot(aes(x = date, y = unemployment_rate)) +
+  geom_line() +
+  labs(
+    y = "Unemployment rate (%)",
+    x = "Date",
+    title = "Monthly U.S. Unemployment Rate (1967–2015)"
+  )
 ```
 
 Do you draw different conclusions now about how unemployment has changed over these 40 years? what explains the difference?
@@ -102,6 +122,16 @@ ggplot(flight_status, aes(x = status)) +
 
 ```{r}
 # your code here
+flight_status <- flight_status |>
+  mutate(
+    status = factor(
+      status,
+      levels = c("very early", "early", "on time", "late", "very late", "cancelled")
+    )
+  )
+
+ggplot(flight_status, aes(x = status)) +
+  geom_bar()
 ```
 
 **your answer:**
